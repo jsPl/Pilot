@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useParams, useNavigate } from "react-router-dom";
 
@@ -22,14 +22,14 @@ const validateMessages = {
 };
 
 const PilotForm = ({ setIsModalVisible, setPilots }) => {
-  const {pilotId} = useParams();
+  const { pilotId } = useParams();
   const [form] = Form.useForm();
   let navigate = useNavigate();
 
   useEffect(() => {
     console.log(pilotId);
     pilotId && fetchPilot(pilotId);
-  },[])
+  }, [])
 
   console.log('PilotForm params from url', pilotId)
 
@@ -47,10 +47,15 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data);
-        setPilots(prev => [...prev, data])
         setIsModalVisible(false);
-        pilotId && navigate('/pilots');
+
+        if (pilotId) {
+          setPilots(prev => prev.map(o => o.id === Number(pilotId) ? data : o));
+          navigate('/pilots');
+        }
+        else {
+          setPilots(prev => [...prev, data])
+        }
       })
       .catch(error => {
         console.log(error)
@@ -61,7 +66,7 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
     fetch(`http://localhost:3004/pilots/${id}`)
       .then(r => r.json())
       .then(data => {
-        form.setFieldsValue({pilot:data});
+        form.setFieldsValue({ pilot: data });
         console.log(data)
       })
       .catch(error => console.log(error))
@@ -69,7 +74,7 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
 
   const onFinish = (values) => {
     const { pilot } = values;
-    if(!pilotId){
+    if (!pilotId) {
       pilot.picture = generateRandomFaceUrl();
     }
     console.log(pilot.picture)

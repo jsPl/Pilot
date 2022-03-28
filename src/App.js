@@ -17,12 +17,13 @@ export default function App() {
         <Routes>
             <Route path='/' element={<Layout />}>
                 <Route index element={<Home />} />
-                <Route path='pilots' element={<AllPilots />} />
-                <Route path='pilots/:pilotId' element={
-                    <PilotModal setPilots={() => { }} modalDefaultVisible={true}
-                        modalTitle='Edit pilot' onModalClose={() => navigate('/pilots')}
-                    />
-                } />
+                <Route path='pilots' element={<AllPilots />}>
+                    <Route path=':pilotId' element={
+                        <PilotModal setPilots={() => { }} modalDefaultVisible={true}
+                            modalTitle='Edit pilot' onModalClose={() => navigate('/pilots')}
+                        />
+                    } />
+                </Route>
 
                 <Route path='tours' element={<Tours />} />
                 <Route path='expenses' element={<Expenses />} />
