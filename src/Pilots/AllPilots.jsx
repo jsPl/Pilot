@@ -9,10 +9,13 @@ import '../style/generic.scss';
 const AllPilots = () => {
     let navigate = useNavigate();
     const [pilots, setPilots] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     useEffect(() => {
+        setIsLoading(true)
         fetch("http://localhost:3004/pilots")
             .then(r => r.json())
-            .then(data => setPilots(data));
+            .then(data => setPilots(data))
+            .finally(() => setIsLoading(false));
     }, [])
 
     const columns = [{
@@ -53,7 +56,7 @@ const AllPilots = () => {
     return (
         <div className="container">
             <h1 className="all-pilots-title">Manage pilots group</h1>
-            <Table rowKey='id' columns={columns} dataSource={pilots} />
+            <Table loading={isLoading} rowKey='id' columns={columns} dataSource={pilots} />
 
             <PilotModal setPilots={setPilots} modalTitle='Add new pilot' actionButton={showModal => (
                 <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size='large' onClick={showModal}>
