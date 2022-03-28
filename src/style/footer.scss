@@ -1,0 +1,13 @@
+.footer {
+    color: rgba(255, 255, 255, 0.65);
+    background: #001529;
+    height: 50px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    .info {
+        text-align: center;
+        padding: 15px;
+        font-size: x-small;
+    }
+}

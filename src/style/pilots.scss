@@ -1,0 +1,28 @@
+.ant-card {
+    width: 240px;
+    text-align: center;
+    padding: 20px 0;
+    margin: 1rem;
+    border-radius: 8px;
+}
+
+.ant-avatar {
+    margin: 0 auto;
+}
+.ant-card-meta-description {
+    margin-bottom: 8px;
+}
+.pilots {
+    background-color: #f5f5f5;
+    padding: 2rem 0;
+}
+.pilots-display-flex, .pilots-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.all-pilots-title {
+    margin-top: 0.5em;
+    color: #1890ff
+}

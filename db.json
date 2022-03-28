@@ -1,0 +1,35 @@
+{
+  "pilots": [
+    {
+      "name": "Roman Stanek",
+      "email": "roman.stanek@pilots.com",
+      "comment": "Lorem ipsum...",
+      "picture": "https://boredhumans.b-cdn.net/faces2/118.jpg",
+      "id": 1
+    },
+    {
+      "id": 2,
+      "name": "Małgosia Busz",
+      "email": "malgosia.busz@pilots.com",
+      "comment": "Lorem ipsum...",
+      "picture": "https://boredhumans.b-cdn.net/faces2/696.jpg"
+    },
+    {
+      "id": 3,
+      "name": "Mateusz Kuszela",
+      "email": "mateusz.kuszela@pilots.com",
+      "comment": "Lorem ipsum...",
+      "picture": "https://boredhumans.b-cdn.net/faces2/723.jpg"
+    }
+  ],
+  "comments": [
+    {
+      "id": 1,
+      "body": "some comment",
+      "postId": 1
+    }
+  ],
+  "profile": {
+    "name": "typicode"
+  }
+}

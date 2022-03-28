@@ -1,0 +1,17 @@
+@import "banner";
+@import "pilots";
+@import "footer";
+
+.container {
+  position: relative;
+  max-width: 70%;
+  margin: 0 auto;
+}
+
+.wrapper {
+  min-height: 100vh;
+  position: relative;
+}
+.conten-wrapper {
+  padding-bottom: 75px;
+}
