@@ -5,7 +5,7 @@ import { CompassOutlined, DollarCircleOutlined, HomeOutlined, MailOutlined, Team
 
 const getPathNameFromLocationOrDefault = (location) => {
     const pathName = location?.pathname.slice(1, location?.pathname.length);
-    return pathName === '' ? 'home' : pathName
+    return pathName === '' ? 'home' : pathName.split('/')[0];
 }
 
 

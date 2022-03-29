@@ -5,7 +5,8 @@ import Layout from './Layout';
 import Home from './Home';
 // import Pilots from './Pilots/Pilots';
 import AllPilots from './Pilots/AllPilots';
-import Tours from './Tours/Tours';
+import AllTours from './Tours/AllTours';
+import TourModal from './Tours/TourModal';
 import Expenses from './Expenses/Expenses';
 import Contact from './Contact/Contact';
 import PilotModal from "./Pilots/PilotModal";
@@ -24,7 +25,12 @@ export default function App() {
                     />
                 } />
 
-                <Route path='tours' element={<Tours />} />
+                <Route path='tours' element={<AllTours />} />
+                <Route path='tours/:tourId' element={
+                    <TourModal setTours={() => { }} modalDefaultVisible={true}
+                        modalTitle='Edit tour' onModalClose={() => navigate('/tours')}
+                    />
+                } />
                 <Route path='expenses' element={<Expenses />} />
                 <Route path='contact' element={<Contact />} />
             </Route>

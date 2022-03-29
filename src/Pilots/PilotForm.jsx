@@ -47,10 +47,13 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
     })
       .then(r => r.json())
       .then(data => {
-        console.log(data);
-        setPilots(prev => [...prev, data])
         setIsModalVisible(false);
-        pilotId && navigate('/pilots');
+        if(pilotId){
+          setPilots(prev => prev.map(o => o.id === Number(pilotId) ? data : o));
+        }else{
+          setPilots(prev => [...prev, data])
+        }
+        navigate('/pilots');
       })
       .catch(error => {
         console.log(error)
