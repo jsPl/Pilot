@@ -10,6 +10,7 @@ import TourModal from './Tours/TourModal';
 import Expenses from './Expenses/Expenses';
 import Contact from './Contact/Contact';
 import PilotModal from "./Pilots/PilotModal";
+import TourExpenses from './Tours/TourExpenses';
 
 export default function App() {
     let navigate = useNavigate();
@@ -31,6 +32,7 @@ export default function App() {
                         modalTitle='Edit tour' onModalClose={() => navigate('/tours')}
                     />
                 } />
+                <Route path='tours/:tourId/expenses' element={<TourExpenses/>}/>
                 <Route path='expenses' element={<Expenses />} />
                 <Route path='contact' element={<Contact />} />
             </Route>

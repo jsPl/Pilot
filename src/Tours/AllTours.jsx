@@ -4,6 +4,7 @@ import { Table, Space, Button, Tooltip } from 'antd';
 import { EditOutlined, PlusCircleOutlined, EuroOutlined } from '@ant-design/icons';
 import TourModal from "./TourModal";
 import DeleteTour from './DeleteTour';
+import TourExpenses from './TourExpenses';
 import '../style/generic.scss';
 
 const AllTours = () => {
@@ -70,9 +71,13 @@ const AllTours = () => {
                 />
 
                 <DeleteTour tour={record} setTours={setTours} />
-                <Tooltip title="Show expenses">
-                    <Button type="dashed" icon={<EuroOutlined />} size='small' />
-                </Tooltip>
+
+                <Link to={`/tours/${record.id}/expenses`}>
+                    <Tooltip title="Show expenses">
+                        <Button type="dashed" icon={<EuroOutlined />} size='small' />
+                    </Tooltip>
+                </Link>
+                {/* <TourExpenses/> */}
 
             </Space>
         ),
