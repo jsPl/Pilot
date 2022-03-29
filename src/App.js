@@ -19,9 +19,10 @@ export default function App() {
                 <Route index element={<Home />} />
                 <Route path='pilots' element={<AllPilots />}>
                     <Route path=':pilotId' element={
-                        <PilotModal setPilots={() => { }} modalDefaultVisible={true}
-                            modalTitle='Edit pilot' onModalClose={() => navigate('/pilots')}
-                        />
+                        <PilotModal modalDefaultVisible={true} modalTitle='Edit pilot' onModalClose={() => navigate('/pilots')} />
+                    } />
+                    <Route path='new' element={
+                        <PilotModal modalDefaultVisible={true} modalTitle='Add new pilot' onModalClose={() => navigate('/pilots')} />
                     } />
                 </Route>
 
@@ -32,4 +33,3 @@ export default function App() {
         </Routes>
     );
 }
-

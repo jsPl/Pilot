@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Outlet } from 'react-router-dom';
 import { Table, Space, Button } from 'antd';
 import { EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import PilotModal from "./PilotModal";
@@ -39,14 +39,9 @@ const AllPilots = () => {
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-                <PilotModal setPilots={setPilots} modalTitle='Edit pilot'
-                    onModalClose={() => navigate('/pilots')}
-                    actionButton={showModal => (
-                        <Link to={`/pilots/${record.id}`}>
-                            <Button type="dashed" icon={<EditOutlined />} size='small' onClick={showModal} />
-                        </Link>
-                    )}
-                />
+                <Link to={`/pilots/${record.id}`}>
+                    <Button type="dashed" icon={<EditOutlined />} size='small' />
+                </Link>
                 <DeletePilot pilot={record} setPilots={setPilots} />
             </Space>
         ),
@@ -58,11 +53,13 @@ const AllPilots = () => {
             <h1 className="all-pilots-title">Manage pilots group</h1>
             <Table loading={isLoading} rowKey='id' columns={columns} dataSource={pilots} />
 
-            <PilotModal setPilots={setPilots} modalTitle='Add new pilot' actionButton={showModal => (
-                <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size='large' onClick={showModal}>
+            <Link to={`/pilots/new`}>
+                <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size='large'>
                     Add new pilot
-                </Button>)}
-            />
+                </Button>
+            </Link>
+
+            <Outlet context={[setPilots]} />
         </div>
     )
 }

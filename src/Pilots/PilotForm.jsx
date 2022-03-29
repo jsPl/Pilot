@@ -1,8 +1,14 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button } from 'antd';
-import { useParams, useNavigate } from "react-router-dom";
+import { Form, Input, Button, DatePicker } from 'antd';
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
+import moment from 'moment';
+import { usePilots } from './AllPilots'
 
 const generateRandomFaceUrl = () => `https://boredhumans.b-cdn.net/faces2/${Math.floor(Math.random() * (994 - 1)) + 1}.jpg`;
+
+const { RangePicker } = DatePicker;
+const dateFormat_YYYY_MM_DD = 'YYYY/MM/DD';
+const dateFormat_Pilot = dateFormat_YYYY_MM_DD;
 
 const layout = {
   labelCol: {
@@ -21,8 +27,9 @@ const validateMessages = {
   },
 };
 
-const PilotForm = ({ setIsModalVisible, setPilots }) => {
+const PilotForm = ({ setIsModalVisible }) => {
   const { pilotId } = useParams();
+  const [setPilots] = useOutletContext();
   const [form] = Form.useForm();
   let navigate = useNavigate();
 
@@ -51,11 +58,11 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
 
         if (pilotId) {
           setPilots(prev => prev.map(o => o.id === Number(pilotId) ? data : o));
-          navigate('/pilots');
         }
         else {
           setPilots(prev => [...prev, data])
         }
+        navigate('/pilots');
       })
       .catch(error => {
         console.log(error)
@@ -66,8 +73,10 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
     fetch(`http://localhost:3004/pilots/${id}`)
       .then(r => r.json())
       .then(data => {
-        form.setFieldsValue({ pilot: data });
+        data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Pilot))
+
         console.log(data)
+        form.setFieldsValue({ pilot: data });
       })
       .catch(error => console.log(error))
   }
@@ -77,7 +86,14 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
     if (!pilotId) {
       pilot.picture = generateRandomFaceUrl();
     }
-    console.log(pilot.picture)
+    if (pilot.dateRange) {
+      pilot.dateRange = pilot.dateRange.map(o => o.format(dateFormat_Pilot))
+    }
+    else {
+      delete pilot.dateRange
+    }
+
+    console.log('onFinish', pilot)
     addPilot(pilot);
   };
 
@@ -109,6 +125,11 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
       <Form.Item name={['pilot', 'comment']} label="Comment">
         <Input.TextArea />
       </Form.Item>
+
+      <Form.Item name={['pilot', 'dateRange']} label="Date range">
+        <RangePicker format={dateFormat_Pilot} />
+      </Form.Item>
+
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
         <Button type="primary" htmlType="submit">
           {pilotId ? 'Save changes' : 'Submit'}
