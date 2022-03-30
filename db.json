@@ -32,28 +32,28 @@
   "tours": [
     {
       "tourCode": "4_22",
-      "title": "New 4",
+      "title": "Ukraina - Zakarpacie",
       "pilot": "Małgosia Busz",
-      "country": "Angola",
+      "country": "Ukraine",
       "dateRange": [
         "24.03.2022",
         "01.04.2022"
       ],
       "id": 4,
-      "currency": "EUR",
-      "budget": 125.7
+      "currency": "UAH",
+      "budget": 5000
     },
     {
-      "tourCode": "1_22",
-      "title": "New Tour",
-      "pilot": "Małgosia Busz",
-      "country": "Anguilla",
+      "tourCode": "122-22",
+      "title": "Gruzja i Armenia: to, co najlepsze z Kaukazu",
+      "pilot": "Mateusz Kuszela",
+      "country": "Georgia",
       "dateRange": [
         "31.03.2022",
         "27.04.2022"
       ],
-      "currency": "XCD",
-      "budget": 125.7,
+      "currency": "GEL",
+      "budget": 10000,
       "id": 5
     },
     {
@@ -123,6 +123,6 @@
       "currency": "EUR",
       "date": "29.03.2022",
       "tourId": 4
-    }    
+    }
   ]
 }
