@@ -3,31 +3,31 @@ import { Button, Tooltip } from "antd";
 import { DeleteOutlined } from '@ant-design/icons';
 import { Popconfirm } from 'antd';
 
-const DeletePilot = ({ pilot, setPilots }) => {
+const DeleteTour = ({ tour, setTours }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const confirm = (e) => {
-        console.log(e, pilot);
+        console.log(e, tour);
 
-        fetch(`http://localhost:3004/pilots/${pilot.id}`, {
+        fetch(`http://localhost:3004/tours/${tour.id}`, {
             method: "DELETE"
         })
             .then(() => {
                 setIsVisible(false);
-                setPilots(prev => prev.filter(o => o.id !== pilot.id))
+                setTours(prev => prev.filter(o => o.id !== tour.id))
             })
     }
 
     return (
         <Popconfirm
             visible={isVisible}
-            title={`Are you sure to delete pilot: ${pilot.name}?`}
+            title={`Are you sure to delete tour: ${tour.tourCode} - ${tour.title}?`}
             onConfirm={confirm}
             onCancel={() => setIsVisible(false)}
             okText="Yes"
             cancelText="No"
         >
-            <Tooltip title="Delete pilot">
+            <Tooltip title="Delete tour">
                 <Button type="primary" size='small' icon={<DeleteOutlined />} onClick={() => setIsVisible(true)} />
             </Tooltip>
         </Popconfirm>
@@ -35,4 +35,4 @@ const DeletePilot = ({ pilot, setPilots }) => {
 
 }
 
-export default DeletePilot;
+export default DeleteTour;

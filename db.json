@@ -1,7 +1,7 @@
 {
   "pilots": [
     {
-      "name": "Roman Stanek",
+      "name": "Roman Stanek 1231",
       "email": "roman.stanek@pilots.com",
       "comment": "Lorem ipsum...",
       "picture": "https://boredhumans.b-cdn.net/faces2/118.jpg",
@@ -9,7 +9,7 @@
     },
     {
       "id": 2,
-      "name": "Małgosia Busz",
+      "name": "Małgosia Busz 2",
       "email": "malgosia.busz@pilots.com",
       "comment": "Lorem ipsum...",
       "picture": "https://boredhumans.b-cdn.net/faces2/696.jpg"
@@ -20,16 +20,85 @@
       "email": "mateusz.kuszela@pilots.com",
       "comment": "Lorem ipsum...",
       "picture": "https://boredhumans.b-cdn.net/faces2/723.jpg"
+    },
+    {
+      "name": "jakub",
+      "email": "jakub@ddd.pl",
+      "picture": "https://boredhumans.b-cdn.net/faces2/626.jpg",
+      "id": 4,
+      "comment": "3"
     }
   ],
-  "comments": [
+  "tours": [
+    {
+      "tourCode": "4_22",
+      "title": "New 4",
+      "pilot": "Małgosia Busz",
+      "country": "Angola",
+      "dateRange": [
+        "24.03.2022",
+        "01.04.2022"
+      ],
+      "id": 4,
+      "currency": "EUR",
+      "budget": 125.7
+    },
+    {
+      "tourCode": "1_22",
+      "title": "New Tour",
+      "pilot": "Małgosia Busz",
+      "country": "Anguilla",
+      "dateRange": [
+        "31.03.2022",
+        "27.04.2022"
+      ],
+      "currency": "XCD",
+      "budget": 125.7,
+      "id": 5
+    },
+    {
+      "tourCode": "2_22 updated",
+      "title": "New 2",
+      "pilot": "Małgosia Busz",
+      "country": "Poland",
+      "dateRange": [
+        "31.03.2022",
+        "27.04.2022"
+      ],
+      "currency": "PLN",
+      "budget": 125.7,
+      "id": 6
+    },
+    {
+      "tourCode": "3_22",
+      "title": "Portugalska przygoda",
+      "dateRange": [
+        "01.03.2022",
+        "02.03.2022"
+      ],
+      "country": "Portugal",
+      "currency": "PLN",
+      "pilot": "Roman Stanek",
+      "budget": 785,
+      "id": 7
+    }
+  ],
+  "expenses": [
     {
       "id": 1,
-      "body": "some comment",
-      "postId": 1
+      "title": "Tickets",
+      "price": "20",
+      "currency": "PLN",
+      "date": "29.03.2022",
+      "tourId": 1
+    },
+    {
+      "id": 2,
+      "title": "Dinner",
+      "price": "30",
+      "currency": "PLN",
+      "date": "29.03.2022",
+      "tourId": 1
     }
-  ],
-  "profile": {
-    "name": "typicode"
-  }
+  ]
 }

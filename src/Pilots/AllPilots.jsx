@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate, Outlet } from 'react-router-dom';
 import { Table, Space, Button } from 'antd';
-import { EditOutlined, DeleteOutlined, PlusCircleOutlined } from '@ant-design/icons';
-import PilotModal from "./PilotModal";
+import { EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import DeletePilot from './DeletePilot';
 import '../style/generic.scss';
 
@@ -51,7 +50,7 @@ const AllPilots = () => {
     return (
         <div className="container">
             <h1 className="all-pilots-title">Manage pilots group</h1>
-            <Table loading={isLoading} rowKey='id' columns={columns} dataSource={pilots} />
+            <Table rowKey='id' columns={columns} dataSource={pilots} loading={isLoading} />
 
             <Link to={`/pilots/new`}>
                 <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size='large'>

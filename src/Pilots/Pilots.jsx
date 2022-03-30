@@ -18,19 +18,21 @@ const Pilots = () => {
         <div className='pilots'>
             <div className='container'>
                 <div className='pilots-display-flex'>
-                    {pilots && pilots.map(el => <Pilot key={el.id} pilotData={el} />)}
+                    {pilots && pilots.filter((el, indx) => indx <= 2).map(el => <Pilot key={el.id} pilotData={el} />)}
                 </div>
                 <div className='pilots-buttons'>
                     <PilotModal setPilots={setPilots} modalTitle='Add new pilot' actionButton={showModal => (
                         <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size='large' onClick={showModal}>
                             Add new pilot
-                        </Button>)} 
+                        </Button>)}
                     />
-                    <Link to='pilots'>
-                        <Button type="secondary" shape="round" icon={<SortAscendingOutlined />} size='large' style={{marginLeft: '50px'}}>
-                            See all pilots
-                        </Button>
-                    </Link>
+                    {pilots.length > 3 &&
+                        <Link to='pilots'>
+                            <Button type="secondary" shape="round" icon={<SortAscendingOutlined />} size='large' style={{ marginLeft: '50px' }}>
+                                See all pilots
+                            </Button>
+                        </Link>
+                    }
                 </div>
             </div>
         </div>
