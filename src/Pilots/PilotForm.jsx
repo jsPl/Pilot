@@ -1,14 +1,9 @@
 import React, { useEffect } from 'react';
-import { Form, Input, Button, DatePicker } from 'antd';
+import { Form, Input, Button } from 'antd';
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import moment from 'moment';
-import { usePilots } from './AllPilots'
 
 const generateRandomFaceUrl = () => `https://boredhumans.b-cdn.net/faces2/${Math.floor(Math.random() * (994 - 1)) + 1}.jpg`;
-
-const { RangePicker } = DatePicker;
-const dateFormat_YYYY_MM_DD = 'YYYY/MM/DD';
-const dateFormat_Pilot = dateFormat_YYYY_MM_DD;
 
 const layout = {
   labelCol: {
@@ -73,8 +68,6 @@ const PilotForm = ({ setIsModalVisible }) => {
     fetch(`http://localhost:3004/pilots/${id}`)
       .then(r => r.json())
       .then(data => {
-        data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Pilot))
-
         console.log(data)
         form.setFieldsValue({ pilot: data });
       })
@@ -86,13 +79,6 @@ const PilotForm = ({ setIsModalVisible }) => {
     if (!pilotId) {
       pilot.picture = generateRandomFaceUrl();
     }
-    if (pilot.dateRange) {
-      pilot.dateRange = pilot.dateRange.map(o => o.format(dateFormat_Pilot))
-    }
-    else {
-      delete pilot.dateRange
-    }
-
     console.log('onFinish', pilot)
     addPilot(pilot);
   };
@@ -124,10 +110,6 @@ const PilotForm = ({ setIsModalVisible }) => {
       </Form.Item>
       <Form.Item name={['pilot', 'comment']} label="Comment">
         <Input.TextArea />
-      </Form.Item>
-
-      <Form.Item name={['pilot', 'dateRange']} label="Date range">
-        <RangePicker format={dateFormat_Pilot} />
       </Form.Item>
 
       <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
