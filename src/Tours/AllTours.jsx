@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, Outlet } from 'react-router-dom';
 import { Table, Space, Button, Tooltip } from 'antd';
 import { EditOutlined, PlusCircleOutlined, EuroOutlined } from '@ant-design/icons';
-import TourModal from "./TourModal";
 import DeleteTour from './DeleteTour';
-import TourExpenses from './TourExpenses';
 import '../style/generic.scss';
 
 const AllTours = () => {
@@ -18,9 +16,7 @@ const AllTours = () => {
             .then(r => r.json())
             .then(data => setTours(data))
             .finally(() => setIsLoading(false))
-    }, []
-    );
-
+    }, []);
 
     const columns = [{
         title: 'Tour code',
@@ -58,17 +54,11 @@ const AllTours = () => {
         key: 'action',
         render: (text, record) => (
             <Space size="middle">
-
-                <TourModal setTours={setTours} modalTitle='Edit tour'
-                    onModalClose={() => navigate('/tours')}
-                    actionButton={showModal => (
-                        <Link to={`/tours/${record.id}`}>
-                            <Tooltip title="Edit tour">
-                                <Button type="dashed" icon={<EditOutlined />} size='small' onClick={showModal} />
-                            </Tooltip>
-                        </Link>
-                    )}
-                />
+                <Link to={`/tours/${record.id}`}>
+                    <Tooltip title="Edit tour">
+                        <Button type="dashed" icon={<EditOutlined />} size='small' />
+                    </Tooltip>
+                </Link>
 
                 <DeleteTour tour={record} setTours={setTours} />
 
@@ -77,10 +67,8 @@ const AllTours = () => {
                         <Button type="dashed" icon={<EuroOutlined />} size='small' />
                     </Tooltip>
                 </Link>
-                {/* <TourExpenses/> */}
-
             </Space>
-        ),
+        )
     },
     ]
 
@@ -89,11 +77,13 @@ const AllTours = () => {
             <h1 className="all-pilots-title">Manage tours</h1>
             <Table rowKey='id' columns={columns} dataSource={tours} loading={isLoading} />
 
-            <TourModal setTours={setTours} modalTitle='Add new tour' actionButton={showModal => (
-                <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size='large' onClick={showModal}>
+            <Link to={`/tours/new`}>
+                <Button type="primary" shape="round" icon={<PlusCircleOutlined />} size='large'>
                     Add new tour
-                </Button>)}
-            />
+                </Button>
+            </Link>
+
+            <Outlet context={[setTours]} />
         </div>
     )
 }

@@ -87,18 +87,42 @@
     {
       "id": 1,
       "title": "Tickets",
-      "price": "20",
+      "price": 20,
       "currency": "PLN",
       "date": "29.03.2022",
-      "tourId": 1
+      "tourId": 4
     },
     {
       "id": 2,
       "title": "Dinner",
-      "price": "30",
+      "price": 30,
       "currency": "PLN",
       "date": "29.03.2022",
-      "tourId": 1
-    }
+      "tourId": 4
+    },
+    {
+      "id": 3,
+      "title": "Museum entry",
+      "price": 60,
+      "currency": "EUR",
+      "date": "29.03.2022",
+      "tourId": 4
+    },
+    {
+      "id": 4,
+      "title": "Transport 1",
+      "price": 70,
+      "currency": "USD",
+      "date": "29.03.2022",
+      "tourId": 4
+    },
+    {
+      "id": 5,
+      "title": "Toilet entry",
+      "price": 12.5,
+      "currency": "EUR",
+      "date": "29.03.2022",
+      "tourId": 4
+    }    
   ]
 }

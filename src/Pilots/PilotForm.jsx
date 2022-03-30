@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { Form, Input, Button } from 'antd';
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
-import moment from 'moment';
 
 const generateRandomFaceUrl = () => `https://boredhumans.b-cdn.net/faces2/${Math.floor(Math.random() * (994 - 1)) + 1}.jpg`;
 

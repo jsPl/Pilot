@@ -3,7 +3,6 @@ import { Route, Routes, useNavigate } from "react-router-dom";
 import './App.scss';
 import Layout from './Layout';
 import Home from './Home';
-// import Pilots from './Pilots/Pilots';
 import AllPilots from './Pilots/AllPilots';
 import AllTours from './Tours/AllTours';
 import TourModal from './Tours/TourModal';
@@ -28,13 +27,17 @@ export default function App() {
                     } />
                 </Route>
 
-                <Route path='tours' element={<AllTours />} />
-                <Route path='tours/:tourId' element={
-                    <TourModal setTours={() => { }} modalDefaultVisible={true}
-                        modalTitle='Edit tour' onModalClose={() => navigate('/tours')}
-                    />
-                } />
-                <Route path='tours/:tourId/expenses' element={<TourExpenses/>}/>
+                <Route path='tours' element={<AllTours />}>
+                    <Route path=':tourId' element={
+                        <TourModal modalDefaultVisible={true} modalTitle='Edit tour' onModalClose={() => navigate('/tours')} />
+                    } />
+                    <Route path='new' element={
+                        <TourModal modalDefaultVisible={true} modalTitle='Add new tour' onModalClose={() => navigate('/tours')} />
+                    } />
+                </Route>
+
+                <Route path='tours/:tourId/expenses' element={<TourExpenses />} />
+
                 <Route path='expenses' element={<Expenses />} />
                 <Route path='contact' element={<Contact />} />
             </Route>

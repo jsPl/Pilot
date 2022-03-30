@@ -1,17 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Select, DatePicker, InputNumber } from 'antd';
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { currencies } from '../utils/currencies';
 import moment from 'moment';
 
 const { RangePicker } = DatePicker;
 const dateFormat_Tour = 'DD.MM.YYYY';
-const distinctCurrencies = (arr) => [...new Set(arr)];
+const distinctCurrencies = (arr) => [...new Set(arr)].filter(o => o && o.toString() !== '');
 
 const { Option } = Select;
 
 const onChange = value => console.log(`selected ${value}`);
-const onSearch = value=> console.log('search:', value);
+const onSearch = value => console.log('search:', value);
 const onBudgetChange = value => console.log('changed', value);
 
 const layout = {
@@ -24,22 +24,33 @@ const layout = {
 }
 
 const validateMessages = {
-    required: "'${name}' is required!",
+    required: "'${label}' is required!",
     types: {
-        email: "'${name}' is not a valid email!",
-        number: "'${name}' is not a valid number!",
+        email: "'${label}' is not a valid email!",
+        number: "'${label}' is not a valid number!",
     },
 };
 
-const TourForm = ({ setIsModalVisible, setTours }) => {
+export const fetchTour = (id) =>
+    fetch(`http://localhost:3004/tours/${id}`)
+        .then(r => r.json())
+        .then(data => {
+            data.dateRangeAsString = data?.dateRange.join(' - ');
+            data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Tour))
+            return data;
+        })
+        .catch(error => console.log(error))
+
+const TourForm = ({ setIsModalVisible }) => {
     let navigate = useNavigate();
     const { tourId } = useParams();
+    const [setTours] = useOutletContext();
     const [form] = Form.useForm();
     const [pilots, setPilots] = useState([]);
 
     useEffect(() => {
         console.log(tourId);
-        tourId && fetchTour(tourId);
+        tourId && fetchTour(tourId).then(data => form.setFieldsValue({ tour: data }));
     }, []);
 
     console.log('TourForm params from url', tourId);
@@ -78,16 +89,16 @@ const TourForm = ({ setIsModalVisible, setTours }) => {
             })
     }
 
-    const fetchTour = (id) => {
-        fetch(`http://localhost:3004/tours/${id}`)
-            .then(r => r.json())
-            .then(data => {
-                data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Tour))
-                console.log(data)
-                form.setFieldsValue({ tour: data });
-            })
-            .catch(error => console.log(error))
-    }
+    // const fetchTour = (id) => {
+    //     fetch(`http://localhost:3004/tours/${id}`)
+    //         .then(r => r.json())
+    //         .then(data => {
+    //             data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Tour))
+    //             console.log(data)
+    //             form.setFieldsValue({ tour: data });
+    //         })
+    //         .catch(error => console.log(error))
+    // }
 
     const onFinish = (values) => {
         const { tour } = values;
@@ -137,7 +148,6 @@ const TourForm = ({ setIsModalVisible, setTours }) => {
                 </Select>
             </Form.Item>
 
-
             <Form.Item
                 name={['tour', 'currency']} label="Currency" rules={[{ required: true }]}
             >
@@ -172,15 +182,17 @@ const TourForm = ({ setIsModalVisible, setTours }) => {
                     {pilots && pilots.map(pilot => <Option key={`pilot_${pilot.name}`} value={pilot.name}>{pilot.name}</Option>)}
                 </Select>
             </Form.Item>
+
             <Form.Item name={['tour', 'budget']} label="Initial budget" rules={[{ required: true }]}>
                 <InputNumber min={1} onChange={onBudgetChange} />
             </Form.Item>
+
             <Form.Item wrapperCol={{ ...layout.wrapperCol, offset: 6 }}>
                 <Button type="primary" htmlType="submit">
                     {tourId ? 'Save changes' : 'Submit'}
                 </Button>
             </Form.Item>
-        </Form >
+        </Form>
     );
 };
 
