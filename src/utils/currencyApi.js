@@ -1,18 +1,20 @@
 const cache = new Map();
 
-export const fetchCurrencyExchangeRateToPLN = (currencyCode = 'eur', dateYYYMMDD = 'last') => {
+export const dateFormat_CurrencyApi = 'YYYY-MM-DD';
+
+export const fetchCurrencyExchangeRateToPLN = (currencyCode = 'eur', dateYYYYMMDD = 'last') => {
     if (currencyCode.toLowerCase() === 'pln') {
-        return { date: dateYYYMMDD, rate: 1, currencyCode }
+        return { date: dateYYYYMMDD, rate: 1, currencyCode }
     }
 
-    const cacheKey = `${currencyCode}-${dateYYYMMDD}`;
+    const cacheKey = `${currencyCode}-${dateYYYYMMDD}`;
     if (cache.has(cacheKey)) {
         //console.log('returns', cacheKey, 'from cache')
         return cache.get(cacheKey)
     }
 
     // console.log('returns', cacheKey, 'from api')
-    return fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currencyCode}/${dateYYYMMDD}/?format=json`)
+    return fetch(`https://api.nbp.pl/api/exchangerates/rates/a/${currencyCode}/${dateYYYYMMDD}/?format=json`)
         .then(res => res.json())
         .then(data => {
             const exchangeData = {
@@ -24,7 +26,7 @@ export const fetchCurrencyExchangeRateToPLN = (currencyCode = 'eur', dateYYYMMDD
             return exchangeData;
         })
         .catch(err => {
-            return { date: dateYYYMMDD, rate: 1, currencyCode }
+            return { date: dateYYYYMMDD, rate: 1, currencyCode }
         })
 }
 
@@ -58,6 +60,40 @@ export const groupExpensesByCurrency = (expenses = []) => {
             acc[currency] = (acc[currency] || 0) + price;
             return acc;
         }, {});
+    }
+    return {}
+}
+
+/**
+ * 
+ * @param {*} expenses array of expenses objects (required properties: date, currency, price)
+ * @returns Object containing currencies grouped by date:
+ * {
+    "29.03.2022": {
+        "PLN": 20,
+        "EUR": 72.5,
+        "USD": 70
+    },
+    "28.03.2022": {
+        "PLN": 30
+    }
+}
+ */
+export const groupExpensesByDate = (expenses = []) => {
+    if (expenses.length > 0) {
+        const expensesByDate = expenses.reduce((acc, { date, currency, price }) => {
+            const byDate = acc[date] || [];
+            byDate.push({ currency, price })
+
+            acc[date] = byDate;
+            return acc;
+        }, {});
+
+        const expensesByDateAndCurrency = {};
+        Object.keys(expensesByDate).forEach(date => {
+            expensesByDateAndCurrency[date] = groupExpensesByCurrency(expensesByDate[date])
+        })
+        return expensesByDateAndCurrency;
     }
     return {}
 }

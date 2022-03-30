@@ -89,17 +89,6 @@ const TourForm = ({ setIsModalVisible }) => {
             })
     }
 
-    // const fetchTour = (id) => {
-    //     fetch(`http://localhost:3004/tours/${id}`)
-    //         .then(r => r.json())
-    //         .then(data => {
-    //             data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Tour))
-    //             console.log(data)
-    //             form.setFieldsValue({ tour: data });
-    //         })
-    //         .catch(error => console.log(error))
-    // }
-
     const onFinish = (values) => {
         const { tour } = values;
         if (tour.dateRange) {
