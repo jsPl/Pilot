@@ -80,7 +80,7 @@ const PilotForm = ({ setIsModalVisible, setPilots }) => {
   };
 
   return (
-    <Form {...layout} form={form} name="nest-messages" onFinish={onFinish} validateMessages={validateMessages}>
+    <Form {...layout} form={form} name="tour-form" onFinish={onFinish} validateMessages={validateMessages}>
       <Form.Item
         name={['pilot', 'name']}
         label="Name Surname"

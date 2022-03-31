@@ -36,7 +36,7 @@ const AllTours = () => {
         title: 'Date range',
         dataIndex: 'dateRange',
         key: 'dateRange',
-        render: text => (<p>{`${text[0]} - ${text[1]}`}</p>)
+        render: text => (<span>{`${text[0]} - ${text[1]}`}</span>)
     },
     {
         title: 'Country',
