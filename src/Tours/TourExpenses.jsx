@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { PageHeader, Skeleton, Statistic, Space, Card, Divider } from 'antd';
 import { fetchTour } from '../Tours/TourForm';
 import ExpensesTable from '../Expenses/ExpensesTable';
@@ -9,6 +9,7 @@ import * as CurrencyApi from '../utils/currencyApi';
 const TourExpenses = () => {
     const { tourId } = useParams();
     const [tour, setTour] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         tourId && fetchTour(tourId).then(data => setTour(data));
@@ -22,7 +23,7 @@ const TourExpenses = () => {
         <div className="container">
             <PageHeader
                 ghost={false}
-                onBack={() => window.history.back()}
+                onBack={() => navigate(-1)}
                 title={`${tour.tourCode || ''}: ${tour.title || ''}`}
                 subTitle={`${tour.pilot}, ${tour.dateRangeAsString || ''}, ${tour.country}`}
             >

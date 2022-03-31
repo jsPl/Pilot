@@ -107,19 +107,11 @@ const TourForm = ({ setIsModalVisible }) => {
     return (
         <Spin spinning={isLoading}>
             <Form {...layout} form={form} name="tour-form" onFinish={onFinish} validateMessages={validateMessages}>
-                <Form.Item
-                    name='tourCode'
-                    label="Tour code"
-                    rules={[{ required: true }]}
-                >
-                    <Input />
+                <Form.Item name='tourCode' label="Tour code" rules={[{ required: true }]}>
+                    <Input autoFocus={!!!tourId} />
                 </Form.Item>
 
-                <Form.Item
-                    name='title'
-                    label="Title"
-                    rules={[{ required: true }]}
-                >
+                <Form.Item name='title' label="Title" rules={[{ required: true }]}>
                     <Input />
                 </Form.Item>
 

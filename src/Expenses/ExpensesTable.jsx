@@ -48,7 +48,7 @@ const columns = [{
     title: 'Value',
     dataIndex: 'price',
     key: 'price',
-    // render: text => (<p>{`${text[0]} - ${text[1]}`}</p>)
+    render: (text, record) => new Intl.NumberFormat(navigator.language, { minimumFractionDigits: 2 }).format(text)
 },
 {
     title: 'Currency',
