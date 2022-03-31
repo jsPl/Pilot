@@ -5,6 +5,8 @@ const cache = new Map();
 export const dateFormat_CurrencyApi = 'YYYY-MM-DD';
 const dateFormat_TourExpense = 'DD.MM.YYYY';
 
+export const distinctCurrencies = (arr) => [...new Set(arr)].filter(o => o && o.toString() !== '');
+
 export const fetchCurrencyExchangeRateToPLN = (currencyCode = 'eur', dateYYYYMMDD = 'last') => {
     if (currencyCode.toLowerCase() === 'pln') {
         return { date: dateYYYYMMDD, rate: 1, currencyCode }

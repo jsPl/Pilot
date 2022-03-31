@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Form, Input, Button, Select, DatePicker, InputNumber } from 'antd';
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { currencies } from '../utils/currencies';
+import { SelectCurrency } from '../Expenses/Expenses';
 import moment from 'moment';
 
 const { RangePicker } = DatePicker;
@@ -53,7 +54,7 @@ const TourForm = ({ setIsModalVisible }) => {
         tourId && fetchTour(tourId).then(data => form.setFieldsValue({ tour: data }));
     }, []);
 
-    console.log('TourForm params from url', tourId);
+    ///console.log('TourForm params from url', tourId);
 
     useEffect(() => {
         fetch("http://localhost:3004/pilots")
@@ -63,7 +64,7 @@ const TourForm = ({ setIsModalVisible }) => {
     );
 
     const addTour = (tourData) => {
-        console.log(tourData, "tourData")
+        //console.log(tourData, "tourData")
         const url = tourId ? `http://localhost:3004/tours/${tourId}` : 'http://localhost:3004/tours';
         const method = tourId ? 'PATCH' : 'POST';
 
@@ -96,7 +97,7 @@ const TourForm = ({ setIsModalVisible }) => {
         } else {
             delete tour.dateRange;
         }
-        console.log('onFinish', tour)
+        //console.log('onFinish', tour)
         addTour(tour);
     };
 
@@ -140,19 +141,7 @@ const TourForm = ({ setIsModalVisible }) => {
             <Form.Item
                 name={['tour', 'currency']} label="Currency" rules={[{ required: true }]}
             >
-                <Select
-                    showSearch
-                    placeholder="Select currency"
-                    optionFilterProp="children"
-                    onChange={onChange}
-                    onSearch={onSearch}
-                    filterOption={true}
-                >
-                    {currencies && distinctCurrencies(currencies.map(o => o.currency_code))
-                        .sort()
-                        .map(curr => <Option key={`curr_${curr}`} value={curr}>{curr}</Option>)
-                    }
-                </Select>
+                <SelectCurrency onChange={onChange} onSearch={onSearch} />
             </Form.Item>
 
             <Form.Item
