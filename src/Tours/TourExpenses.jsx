@@ -4,9 +4,6 @@ import { PageHeader, Skeleton, Statistic, Space, Card, Divider } from 'antd';
 import { fetchTour } from '../Tours/TourForm';
 import ExpensesTable from '../Expenses/ExpensesTable';
 import * as CurrencyApi from '../utils/currencyApi';
-import moment from 'moment';
-
-const dateFormat_TourExpense = 'DD.MM.YYYY';
 
 const TourExpenses = () => {
     const { tourId } = useParams();
@@ -49,13 +46,20 @@ const ExpensesSummary = ({ tour }) => {
 
     useEffect(() => {
         setIsLoading(true);
-        fetchExpensesByCurrency(tour, setExpensesByCurrency, setExpensesByDate)
+        fetchTourExpenses(tour.id)
+            .then(expenses => {
+                setExpensesByDate(CurrencyApi.groupExpensesByDate(expenses));
+                setExpensesByCurrency(CurrencyApi.groupExpensesByCurrency(expenses));
+            })
             .finally(() => setIsLoading(false))
-    }, [tour]);
+    }, [tour.id]);
 
     useEffect(() => {
-        fetchCurrencyExchangeRates(tour, expensesByDate, setTotalExpensesInTourCurrency);
-    }, [expensesByDate, tour]);
+        setIsLoading(true);
+        CurrencyApi.fetchCurrencyExchangeRates(tour.currency, expensesByDate)
+            .then(amount => setTotalExpensesInTourCurrency(amount))
+            .finally(() => setIsLoading(false))
+    }, [expensesByDate, tour.currency]);
 
     if (!tour) {
         return <Skeleton active />
@@ -99,39 +103,8 @@ const CurrencyStatistic = ({ currency, amount, title, ...rest }) => {
     )
 }
 
-const fetchCurrencyExchangeRates = async (tour, expensesByDate, setTotalExpensesInTourCurrency) => {
-    //console.log('expensesByDate', expensesByDate)
-
-    const sumArrayValues = (a, b) => a + b;
-    const tourCurrencyExchangeData = await CurrencyApi.fetchCurrencyExchangeRateToPLN(tour.currency);
-
-    const result = Object.keys(expensesByDate).map(async date => {
-        const dateInApiFormat = moment(date, dateFormat_TourExpense).format(CurrencyApi.dateFormat_CurrencyApi);
-
-        const expensesInTourCurrency = Object.keys(expensesByDate[date]).map(async currency => {
-            const expenseCurrencyExchangeData = await CurrencyApi.fetchCurrencyExchangeRateToPLN(currency, dateInApiFormat);
-            const amount = expensesByDate[date][currency];
-            const amountInTourCurrency = CurrencyApi.convert(amount, expenseCurrencyExchangeData, tourCurrencyExchangeData);
-
-            return amountInTourCurrency;
-        })
-
-        //console.log('expensesInTourCurrency', expensesInTourCurrency)
-
-        return Promise.all(expensesInTourCurrency).then(amounts => amounts.reduce(sumArrayValues, 0));
-    })
-    //console.log('result', result)
-
-    Promise.all(result).then(amounts => setTotalExpensesInTourCurrency(amounts.reduce(sumArrayValues, 0)));
-}
-
-const fetchExpensesByCurrency = async (tour, setExpensesByCurrency, setExpensesByDate) =>
-    fetch(`http://localhost:3004/tour/${tour.id}/expenses`)
+export const fetchTourExpenses = async (tourId) =>
+    fetch(`http://localhost:3004/tour/${tourId}/expenses`)
         .then(r => r.json())
-        .then(expenses => {
-            setExpensesByDate(CurrencyApi.groupExpensesByDate(expenses));
-            setExpensesByCurrency(CurrencyApi.groupExpensesByCurrency(expenses));
-        })
-
 
 export default TourExpenses;
