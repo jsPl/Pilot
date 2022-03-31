@@ -40,8 +40,8 @@
         "01.04.2022"
       ],
       "id": 4,
-      "currency": "USD",
-      "budget": 5000
+      "currency": "PLN",
+      "budget": 5001
     },
     {
       "tourCode": "122-22",
@@ -57,19 +57,6 @@
       "id": 5
     },
     {
-      "tourCode": "2_22 updated",
-      "title": "New 2",
-      "pilot": "Małgosia Busz",
-      "country": "Poland",
-      "dateRange": [
-        "31.03.2022",
-        "27.04.2022"
-      ],
-      "currency": "PLN",
-      "budget": 125.7,
-      "id": 6
-    },
-    {
       "tourCode": "3_22",
       "title": "Portugalska przygoda",
       "dateRange": [
@@ -81,6 +68,19 @@
       "pilot": "Roman Stanek",
       "budget": 785,
       "id": 7
+    },
+    {
+      "tourCode": "2-33A",
+      "title": "Polska - Bałtyk",
+      "dateRange": [
+        "01.05.2022",
+        "05.05.2022"
+      ],
+      "country": "Poland",
+      "currency": "PLN",
+      "pilot": "Mateusz Kuszela",
+      "budget": 2502,
+      "id": 8
     }
   ],
   "expenses": [

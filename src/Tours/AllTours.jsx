@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { Link, useNavigate, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 import { Table, Space, Button, Tooltip } from 'antd';
 import { EditOutlined, PlusCircleOutlined, EuroOutlined } from '@ant-design/icons';
 import DeleteTour from './DeleteTour';
 import '../style/generic.scss';
 
 const AllTours = () => {
-    let navigate = useNavigate();
+    //let navigate = useNavigate();
     const [tours, setTours] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
 
@@ -32,7 +32,7 @@ const AllTours = () => {
         title: 'Date range',
         dataIndex: 'dateRange',
         key: 'dateRange',
-        render: text => (<p>{`${text[0]} - ${text[1]}`}</p>)
+        render: text => (<span>{`${text[0]} - ${text[1]}`}</span>)
     },
     {
         title: 'Country',
@@ -69,8 +69,7 @@ const AllTours = () => {
                 </Link>
             </Space>
         )
-    },
-    ]
+    }]
 
     return (
         <div className="container">

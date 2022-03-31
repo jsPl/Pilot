@@ -14,8 +14,8 @@ const TourModal = ({ setTours, modalTitle, modalDefaultVisible = false, actionBu
     return (
         <>
             {actionButton && actionButton(showModal)}
-            <Modal title={modalTitle} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
-                <TourForm setIsModalVisible={setIsModalVisible} setTours={setTours}/>
+            <Modal forceRender title={modalTitle} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+                <TourForm setIsModalVisible={setIsModalVisible} />
             </Modal>
         </>
     )
