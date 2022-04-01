@@ -93,7 +93,7 @@ const ExpenseForm = ({ setIsModalVisible }) => {
         <Spin spinning={isLoading}>
             <Form {...layout} form={form} name="expense-form" onFinish={onFinish} validateMessages={validateMessages}>
                 <Form.Item name={['expense', 'title']} label="Title" rules={[{ required: true }]}>
-                    <Input />
+                    <Input autoFocus={!!!expenseId} />
                 </Form.Item>
 
                 <Form.Item name={['expense', 'date']} label="Date" >

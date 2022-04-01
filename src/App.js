@@ -37,13 +37,9 @@ export default function App() {
                     } />
                 </Route>
 
-                <Route path='tours/:tourId/expenses' element={<TourExpenses/>}>
-                    <Route path='new' 
-                        element={<ExpenseModal modalTitle='Add new expense' modalDefaultVisible={true} onModalClose={() => navigate(-1)}/>}
-                    />
-                    <Route path=':expenseId' 
-                        element={<ExpenseModal modalTitle='Edit expense' modalDefaultVisible={true} onModalClose={() => navigate(-1)}/>}
-                    />
+                <Route path='tours/:tourId/expenses' element={<TourExpenses />}>
+                    <Route path='new' element={<ExpenseModal modalTitle='Add new expense' />} />
+                    <Route path=':expenseId' element={<ExpenseModal modalTitle='Edit expense' />} />
                 </Route>
 
                 <Route path='expenses' element={<Expenses />} />

@@ -8,7 +8,6 @@ const getPathNameFromLocationOrDefault = (location) => {
     return pathName === '' ? 'home' : pathName.split('/')[0]
 }
 
-
 const Top = () => {
     const location = useLocation();
     const pathName = getPathNameFromLocationOrDefault(location);
