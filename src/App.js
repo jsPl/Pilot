@@ -10,6 +10,7 @@ import Expenses from './Expenses/Expenses';
 import Contact from './Contact/Contact';
 import PilotModal from "./Pilots/PilotModal";
 import TourExpenses from './Tours/TourExpenses';
+import ExpenseModal from './Expenses/ExpenseModal';
 
 export default function App() {
     let navigate = useNavigate();
@@ -36,7 +37,14 @@ export default function App() {
                     } />
                 </Route>
 
-                <Route path='tours/:tourId/expenses' element={<TourExpenses />} />
+                <Route path='tours/:tourId/expenses' element={<TourExpenses/>}>
+                    <Route path='new' 
+                        element={<ExpenseModal modalTitle='Add new expense' modalDefaultVisible={true} onModalClose={() => navigate(-1)}/>}
+                    />
+                    <Route path=':expenseId' 
+                        element={<ExpenseModal modalTitle='Edit expense' modalDefaultVisible={true} onModalClose={() => navigate(-1)}/>}
+                    />
+                </Route>
 
                 <Route path='expenses' element={<Expenses />} />
                 <Route path='contact' element={<Contact />} />
