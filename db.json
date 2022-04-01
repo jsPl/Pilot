@@ -79,7 +79,7 @@
       "country": "Poland",
       "currency": "PLN",
       "pilot": "Mateusz Kuszela",
-      "budget": 2502,
+      "budget": 2503,
       "id": 8
     }
   ],
@@ -87,7 +87,7 @@
     {
       "id": 1,
       "title": "Tickets",
-      "price": 20,
+      "price": 29.99,
       "currency": "PLN",
       "date": "29.03.2022",
       "tourId": 4
@@ -120,9 +120,25 @@
       "id": 5,
       "title": "Toilet entry",
       "price": 12.5,
-      "currency": "EUR",
+      "currency": "PLN",
       "date": "29.03.2022",
       "tourId": 4
+    },
+    {
+      "title": "Wejście na plażę",
+      "date": "01.04.2022",
+      "price": 9.99,
+      "currency": "PLN",
+      "tourId": "8",
+      "id": 6
+    },
+    {
+      "title": "Smażony dorsz",
+      "date": "02.04.2022",
+      "price": 120,
+      "currency": "PLN",
+      "tourId": "8",
+      "id": 7
     }
   ]
 }

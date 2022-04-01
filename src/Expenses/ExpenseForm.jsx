@@ -73,7 +73,7 @@ const ExpenseForm = ({ setIsModalVisible }) => {
                 } else {
                     setExpenses(prev => [...prev, data])
                 }
-                navigate(`/tours/${tourId}/expenses`)
+                //navigate(`/tours/${tourId}/expenses`)
             })
             .catch(error => console.log(error))
     }

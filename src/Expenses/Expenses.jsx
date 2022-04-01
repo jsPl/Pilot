@@ -7,22 +7,19 @@ const Expenses = () => (
     <h1>Expenses</h1>
 )
 
-export const SelectCurrency = ({ handleChange, ...rest }) => {
+const options = distinctCurrencies(currencies.map(o => o.currency_code))
+    .sort().map(o => ({ label: o, value: o }));
+
+export const SelectCurrency = ({ handleChange, ...restProps }) => {
     return (
         <Select
             showSearch
             placeholder="Select currency"
-            optionFilterProp="children"
             onChange={handleChange}
-            filterOption={true}
             style={{ minWidth: '70px' }}
-            {...rest}
-        >
-            {currencies && distinctCurrencies(currencies.map(o => o.currency_code))
-                .sort()
-                .map(curr => <Select.Option key={`curr_${curr}`} value={curr}>{curr}</Select.Option>)
-            }
-        </Select>
+            options={options}
+            {...restProps}
+        />
     )
 }
 
