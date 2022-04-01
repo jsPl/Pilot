@@ -1,22 +1,12 @@
 import { Button } from 'antd';
-import React, { useState, useEffect } from 'react';
-import { Link, Outlet, useParams } from 'react-router-dom';
+import React from 'react';
+import { Link, useParams } from 'react-router-dom';
 import { Table, Space, Tooltip } from 'antd';
 import { PlusCircleOutlined, EditOutlined } from '@ant-design/icons';
 import DeleteExpense from './DeleteExpense';
 
-const ExpensesTable = () => {
+const ExpensesTable = ({ expenses, setExpenses, isLoading }) => {
     const { tourId } = useParams();
-    const [isLoading, setIsLoading] = useState(false);
-    const [expenses, setExpenses] = useState([]);
-
-    useEffect(() => {
-        setIsLoading(true);
-        fetch(`http://localhost:3004/tour/${tourId}/expenses`)
-            .then(r => r.json())
-            .then(data => setExpenses(data))
-            .finally(() => setIsLoading(false))
-    }, [tourId])
 
     const columns = [
         {
@@ -58,7 +48,7 @@ const ExpensesTable = () => {
 
     return (
         <>
-            <h1>Manage tour expenses</h1>
+            <h2>Manage tour expenses</h2>
             <Table rowKey='id' columns={columns} dataSource={expenses} loading={isLoading} />
 
             <Link to={`/tours/${tourId}/expenses/new`}>
@@ -66,8 +56,6 @@ const ExpensesTable = () => {
                     Add new expense
                 </Button>
             </Link>
-
-            <Outlet context={[setExpenses]} />
         </>
     )
 }

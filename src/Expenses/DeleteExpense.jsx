@@ -7,8 +7,6 @@ const DeleteExpense = ({ expense, setExpenses }) => {
     const [isVisible, setIsVisible] = useState(false);
 
     const confirm = (e) => {
-        console.log(e, expense);
-
         fetch(`http://localhost:3004/expenses/${expense.id}`, {
             method: "DELETE"
         })

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Outlet } from 'react-router-dom';
 import { PageHeader, Skeleton, Statistic, Space, Card, Divider } from 'antd';
+import { ArrowLeftOutlined } from '@ant-design/icons';
 import { fetchTour } from '../Tours/TourForm';
 import ExpensesTable from '../Expenses/ExpensesTable';
 import { SelectCurrency } from '../Expenses/Expenses';
@@ -9,38 +10,51 @@ import * as CurrencyApi from '../utils/currencyApi';
 const TourExpenses = () => {
     const { tourId } = useParams();
     const [tour, setTour] = useState(null);
+    const [expenses, setExpenses] = useState([]);
+    const [isLoading, setIsLoading] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        tourId && fetchTour(tourId).then(data => setTour(data));
+        fetchTour(tourId).then(data => setTour(data));
     }, [tourId]);
 
-    if (!tour) {
-        return <div className="container"><Skeleton active /></div>
-    }
+    useEffect(() => {
+        setIsLoading(true);
+        fetchTourExpenses(tourId)
+            .then(data => setExpenses(data))
+            .finally(() => setIsLoading(false))
+    }, [tourId]);
 
     return (
         <div className="container">
-            <PageHeader
-                ghost={false}
-                onBack={() => navigate(-1)}
-                title={`${tour.tourCode || ''}: ${tour.title || ''}`}
-                subTitle={`${tour.pilot}, ${tour.dateRangeAsString || ''}, ${tour.country}`}
-            >
-                <Card className='tourBudgetStats'>
-                    <Space direction='vertical'>
-                        <TourBudget tour={tour} />
-                        <ExpensesSummary tour={tour} />
-                    </Space>
-                </Card>
+            {
+                tour ?
+                    <PageHeader
+                        backIcon={<ArrowLeftOutlined style={{ fontSize: '28px' }} />}
+                        ghost={false}
+                        onBack={() => navigate('/tours')}
+                        title={`${tour.tourCode || ''}: ${tour.title || ''}`}
+                        subTitle={`${tour.pilot}, ${tour.dateRangeAsString || ''}, ${tour.country}`}
+                    >
+                        <Card className='tourBudgetStats'>
+                            <Space direction='vertical'>
+                                <TourBudget tour={tour} />
+                                <ExpensesSummary tour={tour} expenses={expenses} />
+                            </Space>
+                        </Card>
+                    </PageHeader>
+                    :
+                    <Skeleton active />
+            }
 
-                <ExpensesTable />
-            </PageHeader>
+            <ExpensesTable expenses={expenses} setExpenses={setExpenses} isLoading={isLoading} />
+
+            <Outlet context={[expenses, setExpenses]} />
         </div>
     )
 }
 
-const ExpensesSummary = ({ tour }) => {
+const ExpensesSummary = ({ tour, expenses }) => {
     const [isLoading, setIsLoading] = useState(false);
     const [expensesByCurrency, setExpensesByCurrency] = useState({});
     const [expensesByDate, setExpensesByDate] = useState({});
@@ -48,14 +62,9 @@ const ExpensesSummary = ({ tour }) => {
     const [totalExpensesCurrency, setTotalExpensesCurrency] = useState(tour.currency);
 
     useEffect(() => {
-        setIsLoading(true);
-        fetchTourExpenses(tour.id)
-            .then(expenses => {
-                setExpensesByDate(CurrencyApi.groupExpensesByDate(expenses));
-                setExpensesByCurrency(CurrencyApi.groupExpensesByCurrency(expenses));
-            })
-            .finally(() => setIsLoading(false))
-    }, [tour.id]);
+        setExpensesByDate(CurrencyApi.groupExpensesByDate(expenses));
+        setExpensesByCurrency(CurrencyApi.groupExpensesByCurrency(expenses));
+    }, [expenses]);
 
     useEffect(() => {
         setIsLoading(true);

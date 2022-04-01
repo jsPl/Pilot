@@ -39,16 +39,6 @@ export const fetchTour = (id) =>
         })
         .catch(error => console.log(error))
 
-export const fetchTour = (id) =>
-    fetch(`http://localhost:3004/tours/${id}`)
-        .then(r => r.json())
-        .then(data => {
-            data.dateRangeAsString = data?.dateRange.join(' - ');
-            data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Tour))
-            return data;
-        })
-        .catch(error => console.log(error))
-
 const TourForm = ({ setIsModalVisible }) => {
     let navigate = useNavigate();
     const { tourId } = useParams();
