@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams, useOutletContext } from 'react-router-dom';
 import { Form, Input, Button, DatePicker, InputNumber, Spin } from 'antd';
 import { SelectCurrency } from './Expenses';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const dateFormat_Tour = 'DD.MM.YYYY';
 
@@ -31,7 +31,7 @@ export const fetchExpense = (id) =>
     fetch(`http://localhost:3004/expenses/${id}`)
         .then(r => r.json())
         .then(expense => {
-            expense.date = moment(expense.date, dateFormat_Tour);
+            expense.date = dayjs(expense.date, dateFormat_Tour);
             return expense;
         })
 

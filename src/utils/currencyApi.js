@@ -1,4 +1,4 @@
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const cache = new Map();
 
@@ -115,7 +115,7 @@ export const fetchCurrencyExchangeRates = async (tourCurrency, expensesByDate) =
     const sumArrayValues = (a, b) => a + b;
 
     const result = Object.keys(expensesByDate).map(async date => {
-        const dateInApiFormat = moment(date, dateFormat_TourExpense).format(dateFormat_CurrencyApi);
+        const dateInApiFormat = dayjs(date, dateFormat_TourExpense).format(dateFormat_CurrencyApi);
         const tourCurrencyExchangeData = await fetchCurrencyExchangeRateToPLN(tourCurrency, dateInApiFormat);
 
         //console.log('expensesByDate[' + dateInApiFormat + ']', expensesByDate[date])

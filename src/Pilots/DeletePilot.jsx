@@ -20,7 +20,7 @@ const DeletePilot = ({ pilot, setPilots }) => {
 
     return (
         <Popconfirm
-            visible={isVisible}
+            open={isVisible}
             title={`Are you sure to delete pilot: ${pilot.name}?`}
             onConfirm={confirm}
             onCancel={() => setIsVisible(false)}

@@ -3,7 +3,7 @@ import { Form, Input, Button, Select, DatePicker, InputNumber, Spin } from 'antd
 import { useParams, useNavigate, useOutletContext } from "react-router-dom";
 import { currencies } from '../utils/currencies';
 import { SelectCurrency } from '../Expenses/Expenses';
-import moment from 'moment';
+import dayjs from 'dayjs';
 
 const { RangePicker } = DatePicker;
 const dateFormat_Tour = 'DD.MM.YYYY';
@@ -34,7 +34,7 @@ export const fetchTour = (id) =>
         .then(r => r.json())
         .then(data => {
             data.dateRangeAsString = data?.dateRange.join(' - ');
-            data.dateRange = data.dateRange?.map(o => moment(o, dateFormat_Tour))
+            data.dateRange = data.dateRange?.map(o => dayjs(o, dateFormat_Tour))
             return data;
         })
         .catch(error => console.log(error))

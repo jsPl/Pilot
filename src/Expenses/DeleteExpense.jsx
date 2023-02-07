@@ -18,7 +18,7 @@ const DeleteExpense = ({ expense, setExpenses }) => {
 
     return (
         <Popconfirm
-            visible={isVisible}
+            open={isVisible}
             title={`Are you sure to delete expense: ${expense.title}?`}
             onConfirm={confirm}
             onCancel={() => setIsVisible(false)}

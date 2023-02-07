@@ -20,7 +20,7 @@ const DeleteTour = ({ tour, setTours }) => {
 
     return (
         <Popconfirm
-            visible={isVisible}
+            open={isVisible}
             title={`Are you sure to delete tour: ${tour.tourCode} - ${tour.title}?`}
             onConfirm={confirm}
             onCancel={() => setIsVisible(false)}
