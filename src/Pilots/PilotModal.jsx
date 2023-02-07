@@ -11,14 +11,12 @@ const PilotModal = ({ setPilots, modalTitle, modalDefaultVisible = false, action
         onModalClose && onModalClose();
     }
 
-    return (
-        <>
-            {actionButton && actionButton(showModal)}
-            <Modal title={modalTitle} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
-                <PilotForm setIsModalVisible={setIsModalVisible} setPilots={setPilots} />
-            </Modal>
-        </>
-    )
+    return (<>
+        {actionButton && actionButton(showModal)}
+        <Modal title={modalTitle} open={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+            <PilotForm setIsModalVisible={setIsModalVisible} setPilots={setPilots} />
+        </Modal>
+    </>);
 }
 
 export default PilotModal;

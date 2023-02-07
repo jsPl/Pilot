@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate, Outlet } from 'react-router-dom';
-import { PageHeader, Skeleton, Statistic, Space, Card, Divider } from 'antd';
+import { PageHeader } from '@ant-design/pro-layout';
+import { Skeleton, Statistic, Space, Card, Divider } from 'antd';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { fetchTour } from '../Tours/TourForm';
 import ExpensesTable from '../Expenses/ExpensesTable';

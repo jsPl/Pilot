@@ -11,14 +11,12 @@ const TourModal = ({ setTours, modalTitle, modalDefaultVisible = false, actionBu
         onModalClose && onModalClose();
     }
 
-    return (
-        <>
-            {actionButton && actionButton(showModal)}
-            <Modal forceRender title={modalTitle} visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
-                <TourForm setIsModalVisible={setIsModalVisible} />
-            </Modal>
-        </>
-    )
+    return (<>
+        {actionButton && actionButton(showModal)}
+        <Modal forceRender title={modalTitle} open={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
+            <TourForm setIsModalVisible={setIsModalVisible} />
+        </Modal>
+    </>);
 }
 
 export default TourModal;

@@ -12,9 +12,9 @@ export function GenericModal({ modalTitle, onAfterModalClose = () => { }, childr
     }
 
     return (
-        <Modal title={modalTitle} visible={isModalVisible} afterClose={handleAfterClose}
+        (<Modal title={modalTitle} open={isModalVisible} afterClose={handleAfterClose}
             onCancel={handleCancel} footer={null}>
             {children(setIsModalVisible)}
-        </Modal>
-    )
+        </Modal>)
+    );
 }
