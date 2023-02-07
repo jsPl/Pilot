@@ -21,19 +21,19 @@ export default function App() {
                 <Route index element={<Home />} />
                 <Route path='pilots' element={<AllPilots />}>
                     <Route path=':pilotId' element={
-                        <PilotModal modalDefaultVisible={true} modalTitle='Edit pilot' onModalClose={() => navigate('/pilots')} />
+                        <PilotModal modalTitle='Edit pilot' />
                     } />
                     <Route path='new' element={
-                        <PilotModal modalDefaultVisible={true} modalTitle='Add new pilot' onModalClose={() => navigate('/pilots')} />
+                        <PilotModal modalTitle='Add new pilot' />
                     } />
                 </Route>
 
                 <Route path='tours' element={<AllTours />}>
                     <Route path=':tourId' element={
-                        <TourModal modalDefaultVisible={true} modalTitle='Edit tour' onModalClose={() => navigate('/tours')} />
+                        <TourModal modalTitle='Edit tour' />
                     } />
                     <Route path='new' element={
-                        <TourModal modalDefaultVisible={true} modalTitle='Add new tour' onModalClose={() => navigate('/tours')} />
+                        <TourModal modalTitle='Add new tour' />
                     } />
                 </Route>
 

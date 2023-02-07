@@ -65,7 +65,6 @@ const PilotForm = ({ setIsModalVisible }) => {
                 else {
                     setPilots(prev => [...prev, data])
                 }
-                navigate('/pilots');
             })
             .catch(error => {
                 console.log(error)

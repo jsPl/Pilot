@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { Modal } from 'antd';
+import React from 'react';
+import { GenericModal } from '../GenericModal';
+import { useNavigate } from "react-router-dom";
 import TourForm from './TourForm';
 
-const TourModal = ({ setTours, modalTitle, modalDefaultVisible = false, actionButton, onModalClose }) => {
-    const [isModalVisible, setIsModalVisible] = useState(modalDefaultVisible);
-    const showModal = () => setIsModalVisible(true);
-    const handleOk = () => setIsModalVisible(false);
-    const handleCancel = () => {
-        setIsModalVisible(false);
-        onModalClose && onModalClose();
+const TourModal = ({ title }) => {
+    const navigate = useNavigate();
+
+    const handleAfterClose = () => {
+        navigate(`/tours`)
     }
 
-    return (<>
-        {actionButton && actionButton(showModal)}
-        <Modal forceRender title={modalTitle} open={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
-            <TourForm setIsModalVisible={setIsModalVisible} />
-        </Modal>
-    </>);
+    return (
+        <GenericModal modalTitle={title} onAfterModalClose={handleAfterClose}>
+            {setIsModalVisible => (
+                <TourForm setIsModalVisible={setIsModalVisible} />
+            )}
+        </GenericModal>
+    )
 }
 
 export default TourModal;

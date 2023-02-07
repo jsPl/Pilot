@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
-import { Modal } from 'antd';
+import React from 'react';
+import { GenericModal } from '../GenericModal';
+import { useNavigate } from "react-router-dom";
 import PilotForm from './PilotForm';
 
-const PilotModal = ({ setPilots, modalTitle, modalDefaultVisible = false, actionButton, onModalClose }) => {
-    const [isModalVisible, setIsModalVisible] = useState(modalDefaultVisible);
-    const showModal = () => setIsModalVisible(true);
-    const handleOk = () => setIsModalVisible(false);
-    const handleCancel = () => {
-        setIsModalVisible(false);
-        onModalClose && onModalClose();
+const PilotModal = ({ title }) => {
+    const navigate = useNavigate();
+
+    const handleAfterClose = () => {
+        navigate(`/pilots`)
     }
 
-    return (<>
-        {actionButton && actionButton(showModal)}
-        <Modal title={modalTitle} open={isModalVisible} onOk={handleOk} onCancel={handleCancel} footer={null}>
-            <PilotForm setIsModalVisible={setIsModalVisible} setPilots={setPilots} />
-        </Modal>
-    </>);
+    return (
+        <GenericModal modalTitle={title} onAfterModalClose={handleAfterClose}>
+            {setIsModalVisible => (
+                <PilotForm setIsModalVisible={setIsModalVisible} />
+            )}
+        </GenericModal>
+    )
 }
 
 export default PilotModal;

@@ -12,7 +12,7 @@ const ExpenseModal = ({ title }) => {
     }
 
     return (
-        <GenericModal modalTitle={title} onAfterModalClose={(handleAfterClose)}>
+        <GenericModal modalTitle={title} onAfterModalClose={handleAfterClose}>
             {setIsModalVisible => (
                 <ExpenseForm setIsModalVisible={setIsModalVisible} />
             )}
